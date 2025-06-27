@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sibrox - Blockchain Infrastructure for Parametric Insurance</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .nav-active { color: #667eea; border-bottom: 2px solid #667eea; }
+        .hidden { display: none; }
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-2xl font-bold text-gray-900">Sibrox</h1>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:space-x-8">
+                    <a href="#" onclick="showPage('home')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Home</a>
+                    <a href="#" onclick="showPage('products')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Products</a>
+                    <a href="#" onclick="showPage('technology')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Technology</a>
+                    <a href="#" onclick="showPage('team')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Team</a>
+                    <a href="#" onclick="showPage('company')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Company</a>
+                </div>
+                <div class="hidden md:flex items-center">
+                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-16">
+        <!-- Home Page -->
+        <div id="home-page" class="page">
+            <!-- Hero Section -->
+            <section class="gradient-bg text-white py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-6">Blockchain Infrastructure for Parametric Insurance</h1>
+                        <p class="text-xl md:text-2xl mb-8 text-blue-100">Revolutionizing risk management through automated, transparent, and interoperable smart contracts</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="showPage('products')" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">Explore Products</button>
+                            <button onclick="showPage('technology')" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">View Technology</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Problem Statement -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Traditional Insurance is Broken</h2>
+                        <p class="text-xl text-gray-600">Multiple intermediaries, manual processes, and legacy systems create inefficiencies</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="text-center">
+                            <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-users text-red-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Multiple Intermediaries</h3>
+                            <p class="text-gray-600">Brokers, MGAs, and financial advisors add complexity</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-clock text-red-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Slow Processing</h3>
+                            <p class="text-gray-600">Manual claim processing and outdated COBOL systems</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-dollar-sign text-red-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">High Costs</h3>
+                            <p class="text-gray-600">Expensive premiums due to operational overhead</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-ban text-red-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Limited Access</h3>
+                            <p class="text-gray-600">Many risks becoming uninsurable or unavailable</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solution -->
+            <section class="py-16 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Solution: Parametric Smart Contracts</h2>
+                        <p class="text-xl text-gray-600">Automated, transparent, and instant insurance powered by blockchain</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="text-center card-hover bg-white p-6 rounded-lg shadow-lg">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-bolt text-blue-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Super-Fast</h3>
+                            <p class="text-gray-600">Instant payouts triggered by verifiable data</p>
+                        </div>
+                        <div class="text-center card-hover bg-white p-6 rounded-lg shadow-lg">
+                            <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-dollar-sign text-green-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Cost-Effective</h3>
+                            <p class="text-gray-600">Eliminate intermediaries and reduce operational costs</p>
+                        </div>
+                        <div class="text-center card-hover bg-white p-6 rounded-lg shadow-lg">
+                            <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-eye text-purple-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Transparent</h3>
+                            <p class="text-gray-600">All transactions visible on the blockchain</p>
+                        </div>
+                        <div class="text-center card-hover bg-white p-6 rounded-lg shadow-lg">
+                            <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-link text-indigo-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Interoperable</h3>
+                            <p class="text-gray-600">Cross-chain compatibility and integration</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market Opportunity -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">$90B Market Opportunity</h2>
+                        <p class="text-xl text-gray-600">Transforming the insurance SaaS landscape</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg">
+                        <canvas id="marketChart" style="height: 400px;"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Products Page -->
+        <div id="products-page" class="page hidden">
+            <section class="py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Products</h1>
+                        <p class="text-xl text-gray-600">Comprehensive blockchain insurance solutions for modern risks</p>
+                    </div>
+
+                    <!-- Paramify - Flagship Product -->
+                    <div class="bg-white rounded-lg shadow-xl p-8 mb-12">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h2 class="text-3xl font-bold text-gray-900 mb-4">Paramify</h2>
+                                <p class="text-lg text-gray-600 mb-6">Our flagship parametric insurance platform for flood, fire, and cyber risks. Built on blockchain technology for automated claims processing and instant payouts.</p>
+                                <div class="space-y-4">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                        <span>Real-time flood data monitoring via USGS integration</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                        <span>Smart contract automation for instant payouts</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                        <span>EVM-compatible across multiple blockchains</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                        <span>Role-based access control for enterprise security</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h3 class="text-xl font-semibold mb-4">Supported Risk Types</h3>
+                                <div class="grid grid-cols-1 gap-4">
+                                    <div class="bg-blue-100 p-4 rounded-lg">
+                                        <i class="fas fa-water text-blue-600 text-2xl mb-2"></i>
+                                        <h4 class="font-semibold">Flood Insurance</h4>
+                                        <p class="text-sm text-gray-600">Automated payouts based on verified water level data</p>
+                                    </div>
+                                    <div class="bg-red-100 p-4 rounded-lg">
+                                        <i class="fas fa-fire text-red-600 text-2xl mb-2"></i>
+                                        <h4 class="font-semibold">Fire Insurance</h4>
+                                        <p class="text-sm text-gray-600">Coverage triggered by temperature and fire detection data</p>
+                                    </div>
+                                    <div class="bg-purple-100 p-4 rounded-lg">
+                                        <i class="fas fa-shield-alt text-purple-600 text-2xl mb-2"></i>
+                                        <h4 class="font-semibold">Cyber Insurance</h4>
+                                        <p class="text-sm text-gray-600">Protection against cyber incidents with verified triggers</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Features -->
+                    <div class="grid md:grid-cols-3 gap-8 mb-12">
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <i class="fas fa-cogs text-blue-600 text-3xl mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-3">Enterprise SaaS</h3>
+                            <p class="text-gray-600">White-label solutions for insurance providers looking to modernize their offerings</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <i class="fas fa-chart-line text-green-600 text-3xl mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-3">Analytics Dashboard</h3>
+                            <p class="text-gray-600">Real-time monitoring and reporting for risk assessment and portfolio management</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <i class="fas fa-plug text-purple-600 text-3xl mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-3">API Integration</h3>
+                            <p class="text-gray-600">Seamless integration with existing insurance systems and third-party data providers</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Technology Page -->
+        <div id="technology-page" class="page hidden">
+            <section class="py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Technology Stack</h1>
+                        <p class="text-xl text-gray-600">Built on cutting-edge blockchain infrastructure for maximum reliability and scalability</p>
+                    </div>
+
+                    <!-- Architecture Overview -->
+                    <div class="bg-white rounded-lg shadow-xl p-8 mb-12">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">System Architecture</h2>
+                        <div class="tech-grid">
+                            <div class="bg-blue-50 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-blue-900 mb-3">Smart Contracts</h3>
+                                <ul class="text-blue-700 space-y-2">
+                                    <li>• ERC-721 Enumerable for policy tokens</li>
+                                    <li>• Threshold-based payout logic</li>
+                                    <li>• Multi-signature governance</li>
+                                    <li>• OpenZeppelin security standards</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-green-900 mb-3">Oracle Network</h3>
+                                <ul class="text-green-700 space-y-2">
+                                    <li>• Chainlink-compatible aggregators</li>
+                                    <li>• USGS real-time data feeds</li>
+                                    <li>• Government database integration</li>
+                                    <li>• 5-minute update intervals</li>
+                                </ul>
+                            </div>
+                            <div class="bg-purple-50 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-purple-900 mb-3">Backend Infrastructure</h3>
+                                <ul class="text-purple-700 space-y-2">
+                                    <li>• Node.js with Express framework</li>
+                                    <li>• WebSocket real-time updates</li>
+                                    <li>• RESTful API architecture</li>
+                                    <li>• Automated monitoring systems</li>
+                                </ul>
+                            </div>
+                            <div class="bg-indigo-50 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-indigo-900 mb-3">Frontend Platform</h3>
+                                <ul class="text-indigo-700 space-y-2">
+                                    <li>• React with TypeScript</li>
+                                    <li>• Web3 wallet integration</li>
+                                    <li>• Responsive design system</li>
+                                    <li>• Real-time data visualization</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blockchain Networks -->
+                    <div class="bg-gray-50 p-8 rounded-lg mb-12">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Supported Networks</h2>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fab fa-ethereum text-blue-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-900">Ethereum</h3>
+                                <p class="text-gray-600">Primary deployment network</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-mountain text-red-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-900">Avalanche</h3>
+                                <p class="text-gray-600">C-Chain compatible</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-bridge text-purple-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-900">Arbitrum</h3>
+                                <p class="text-gray-600">Layer 2 scaling solution</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Features -->
+                    <div class="bg-white rounded-lg shadow-xl p-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Security & Compliance</h2>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Smart Contract Security</h3>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>✓ OpenZeppelin AccessControl implementation</li>
+                                    <li>✓ Role-based permission system</li>
+                                    <li>✓ Reentrancy protection</li>
+                                    <li>✓ Comprehensive unit testing</li>
+                                    <li>✓ Gas optimization techniques</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Enterprise Compliance</h3>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>✓ Insurance regulatory compliance</li>
+                                    <li>✓ Data privacy protection</li>
+                                    <li>✓ Audit trail maintenance</li>
+                                    <li>✓ KYC/AML integration ready</li>
+                                    <li>✓ Multi-signature governance</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Team Page -->
+        <div id="team-page" class="page hidden">
+            <section class="py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Team</h1>
+                        <p class="text-xl text-gray-600">Experienced founders and engineers building the future of insurance</p>
+                    </div>
+
+                    <!-- Founders -->
+                    <div class="mb-16">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Founders</h2>
+                        <div class="grid md:grid-cols-2 gap-12">
+                            <div class="text-center">
+                                <div class="w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mx-auto mb-6 flex items-center justify-center">
+                                    <span class="text-white text-4xl font-bold">D</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Daniel</h3>
+                                <p class="text-blue-600 font-semibold mb-4">Co-Founder</p>
+                                <div class="bg-gray-50 p-6 rounded-lg">
+                                    <p class="text-gray-600 mb-4">Expert in actuarial science with deep experience in cyber insurance. Brings critical risk assessment and insurance domain expertise to the team.</p>
+                                    <div class="flex flex-wrap justify-center gap-2">
+                                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Actuarial Science</span>
+                                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Cyber Insurance</span>
+                                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Risk Management</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-32 h-32 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mx-auto mb-6 flex items-center justify-center">
+                                    <span class="text-white text-4xl font-bold">K</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Kirill</h3>
+                                <p class="text-blue-600 font-semibold mb-4">Co-Founder</p>
+                                <div class="bg-gray-50 p-6 rounded-lg">
+                                    <p class="text-gray-600 mb-4">Serial entrepreneur who co-founded a $100M fintech company and contributed to pivoting a cybersecurity decacorn. Brings scaling and business development expertise.</p>
+                                    <div class="flex flex-wrap justify-center gap-2">
+                                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Fintech</span>
+                                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Cybersecurity</span>
+                                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Business Development</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Development Team -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Development Team</h2>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-white text-xl font-bold">D</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-900">Daniel</h3>
+                                        <p class="text-blue-600">Founding Back-End Developer</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 mb-4">Computer science and electrical engineering background. Architect of our smart contract infrastructure and blockchain integration systems.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Computer Science</span>
+                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Electrical Engineering</span>
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Blockchain</span>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-pink-400 to-red-500 rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-white text-xl font-bold">M</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-900">Mary</h3>
+                                        <p class="text-blue-600">Founding Front-End Developer</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 mb-4">Computational engineering specialist with expertise in digital twins. Leading our user experience and data visualization platforms.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Computational Engineering</span>
+                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Digital Twins</span>
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">UX/UI</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advisory -->
+                    <div class="mt-16 text-center">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Advisors & Partners</h2>
+                        <p class="text-gray-600 mb-8">We work closely with industry experts and leading organizations</p>
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <i class="fas fa-university text-blue-600 text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-gray-900">Academic Partners</h3>
+                                <p class="text-gray-600">Research collaborations in actuarial science and blockchain technology</p>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <i class="fas fa-building text-green-600 text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-gray-900">Insurance Partners</h3>
+                                <p class="text-gray-600">Working with leading insurers to validate and deploy solutions</p>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <i class="fas fa-code text-purple-600 text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-gray-900">Technical Advisors</h3>
+                                <p class="text-gray-600">Blockchain and DeFi experts guiding our technical architecture</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Company Page -->
+        <div id="company-page" class="page hidden">
+            <section class="py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Sibrox</h1>
+                        <p class="text-xl text-gray-600">Building the infrastructure for the next generation of parametric insurance</p>
+                    </div>
+
+                    <!-- Mission & Vision -->
+                    <div class="grid md:grid-cols-2 gap-12 mb-16">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Mission</h2>
+                            <p class="text-gray-600 text-lg leading-relaxed">To eliminate the inefficiencies, high costs, and accessibility barriers in traditional insurance by building blockchain-native infrastructure that enables transparent, automated, and interoperable parametric insurance solutions.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Vision</h2>
+                            <p class="text-gray-600 text-lg leading-relaxed">A world where insurance is instantly accessible, transparently executed, and automatically settled through smart contracts, making risk management simple and affordable for everyone.</p>
+                        </div>
+                    </div>
+
+                    <!-- Traction -->
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-lg mb-16">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Traction & Achievements</h2>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="text-3xl font-bold text-blue-600 mb-2">$60K+</div>
+                                <p class="text-gray-600">Grant Funding Secured</p>
+                                <p class="text-sm text-gray-500 mt-2">Polkadot $10K, Arbitrum $50K</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="text-3xl font-bold text-green-600 mb-2">3+</div>
+                                <p class="text-gray-600">Grants in Pipeline</p>
+                                <p class="text-sm text-gray-500 mt-2">Additional funding opportunities</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="text-3xl font-bold text-purple-600 mb-2">2</div>
+                                <p class="text-gray-600">Enterprise Negotiations</p>
+                                <p class="text-sm text-gray-500 mt-2">Fidelidade & Mapfre</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="text-3xl font-bold text-indigo-600 mb-2">Multiple</div>
+                                <p class="text-gray-600">Hackathon Wins</p>
+                                <p class="text-sm text-gray-500 mt-2">Technical validation</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Market Focus -->
+                    <div class="bg-white rounded-lg shadow-xl p-8 mb-16">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Market Strategy</h2>
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div>
+                                <h3 class="text-lg font-semibold text-blue-600 mb-3">B2B SaaS Model</h3>
+                                <p class="text-gray-600">Backend infrastructure paid by Web3 platforms, pilots funded by traditional insurers</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-green-600 mb-3">Enterprise Focus</h3>
+                                <p class="text-gray-600">Targeting insurance carriers looking to modernize with blockchain technology</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-purple-600 mb-3">Future Value</h3>
+                                <p class="text-gray-600">Building infrastructure that will power the next generation of DeFi insurance protocols</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Section -->
+                    <div id="contact" class="bg-gray-900 text-white p-8 rounded-lg">
+                        <div class="text-center mb-8">
+                            <h2 class="text-2xl font-bold mb-4">Get in Touch</h2>
+                            <p class="text-gray-300">Ready to revolutionize insurance with us?</p>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-8 text-center">
+                            <div>
+                                <i class="fas fa-envelope text-blue-400 text-2xl mb-3"></i>
+                                <h3 class="font-semibold mb-2">Email</h3>
+                                <p class="text-gray-300">hello@sibrox.io</p>
+                            </div>
+                            <div>
+                                <i class="fab fa-telegram text-blue-400 text-2xl mb-3"></i>
+                                <h3 class="font-semibold mb-2">Telegram</h3>
+                                <p class="text-gray-300">@KSSLAVIN</p>
+                            </div>
+                            <div>
+                                <i class="fab fa-github text-blue-400 text-2xl mb-3"></i>
+                                <h3 class="font-semibold mb-2">GitHub</h3>
+                                <p class="text-gray-300">github.com/danielabrahamx</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Sibrox</h3>
+                    <p class="text-gray-300">Blockchain infrastructure for parametric insurance</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Products</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" onclick="showPage('products')" class="hover:text-white">Paramify</a></li>
+                        <li><a href="#" onclick="showPage('products')" class="hover:text-white">Enterprise SaaS</a></li>
+                        <li><a href="#" onclick="showPage('products')" class="hover:text-white">API Integration</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" onclick="showPage('team')" class="hover:text-white">Team</a></li>
+                        <li><a href="#" onclick="showPage('company')" class="hover:text-white">About</a></li>
+                        <li><a href="#" onclick="showPage('company')" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Technology</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" onclick="showPage('technology')" class="hover:text-white">Blockchain</a></li>
+                        <li><a href="#" onclick="showPage('technology')" class="hover:text-white">Smart Contracts</a></li>
+                        <li><a href="#" onclick="showPage('technology')" class="hover:text-white">Oracles</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Sibrox. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId + '-page').classList.remove('hidden');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('nav-active');
+            });
+            
+            event.target.classList.add('nav-active');
+        }
+
+        // Initialize chart on home page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Market opportunity chart
+            const ctx = document.getElementById('marketChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Traditional Insurance SaaS', 'Blockchain Insurance (Opportunity)', 'Other InsurTech'],
+                    datasets: [{
+                        data: [65, 25, 10],
+                        backgroundColor: ['#4F46E5', '#06B6D4', '#8B5CF6'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '$90B Insurance SaaS Market Breakdown',
+                            font: { size: 18, weight: 'bold' }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            labels: { padding: 20, font: { size: 14 } }
+                        }
+                    }
+                }
+            });
+
+            // Set home as default active
+            document.querySelector('a[onclick="showPage(\'home\')"]').classList.add('nav-active');
+        });
+    </script>
+</body>
+</html>
