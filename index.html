@@ -28,15 +28,43 @@
                         <h1 class="text-2xl font-bold text-gray-900">Sibrox</h1>
                     </div>
                 </div>
+                <!-- Desktop Navigation -->
                 <div class="hidden md:ml-6 md:flex md:space-x-8">
                     <a href="#" onclick="showPage('home')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Home</a>
                     <a href="#" onclick="showPage('products')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Products</a>
-                    <a href="#" onclick="showPage('technology')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Technology</a>
+                    <a href="#" onclick="showPage('technology')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Tech Stack</a>
                     <a href="#" onclick="showPage('team')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Team</a>
-                    <a href="#" onclick="showPage('company')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Company</a>
+                    <a href="#" onclick="showPage('company')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">About</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="flex md:hidden">
+                    <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Icon when menu is closed -->
+                        <svg id="mobile-menu-closed-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <!-- Icon when menu is open -->
+                        <svg id="mobile-menu-open-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
                 <div class="hidden md:flex items-center">
                     <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu, show/hide based on menu state -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#" onclick="showPage('home'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">Home</a>
+                <a href="#" onclick="showPage('products'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">Products</a>
+                <a href="#" onclick="showPage('technology'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">Tech Stack</a>
+                <a href="#" onclick="showPage('team'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">Team</a>
+                <a href="#" onclick="showPage('company'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">About</a>
+                <div class="pt-4 pb-3 border-t border-gray-200">
+                    <a href="#contact" onclick="toggleMobileMenu()" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out mx-2">Contact Us</a>
                 </div>
             </div>
         </div>
@@ -54,7 +82,7 @@
                         <p class="text-xl md:text-2xl mb-8 text-blue-100">Revolutionizing risk management through automated, transparent, and interoperable smart contracts</p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center">
                             <button onclick="showPage('products')" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">Explore Products</button>
-                            <button onclick="showPage('technology')" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">View Technology</button>
+                            <button onclick="showPage('technology')" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">View Tech Stack</button>
                         </div>
                     </div>
                 </div>
@@ -233,7 +261,7 @@
             </section>
         </div>
 
-        <!-- Technology Page -->
+        <!-- Tech Stack Page -->
         <div id="technology-page" class="page hidden">
             <section class="py-20">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -389,47 +417,6 @@
                         </div>
                     </div>
 
-                    <!-- Development Team -->
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Development Team</h2>
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div class="bg-white p-6 rounded-lg shadow-lg">
-                                <div class="flex items-center mb-4">
-                                    <div class="w-16 h-16 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full flex items-center justify-center mr-4">
-                                        <span class="text-white text-xl font-bold">D</span>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold text-gray-900">Daniel</h3>
-                                        <p class="text-blue-600">Founding Back-End Developer</p>
-                                    </div>
-                                </div>
-                                <p class="text-gray-600 mb-4">Computer science and electrical engineering background. Architect of our smart contract infrastructure and blockchain integration systems.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Computer Science</span>
-                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Electrical Engineering</span>
-                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Blockchain</span>
-                                </div>
-                            </div>
-                            <div class="bg-white p-6 rounded-lg shadow-lg">
-                                <div class="flex items-center mb-4">
-                                    <div class="w-16 h-16 bg-gradient-to-r from-pink-400 to-red-500 rounded-full flex items-center justify-center mr-4">
-                                        <span class="text-white text-xl font-bold">M</span>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold text-gray-900">Mary</h3>
-                                        <p class="text-blue-600">Founding Front-End Developer</p>
-                                    </div>
-                                </div>
-                                <p class="text-gray-600 mb-4">Computational engineering specialist with expertise in digital twins. Leading our user experience and data visualization platforms.</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Computational Engineering</span>
-                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Digital Twins</span>
-                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">UX/UI</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Advisory -->
                     <div class="mt-16 text-center">
                         <h2 class="text-2xl font-bold text-gray-900 mb-6">Advisors & Partners</h2>
@@ -484,7 +471,7 @@
                             <div class="bg-white p-6 rounded-lg text-center">
                                 <div class="text-3xl font-bold text-blue-600 mb-2">$60K+</div>
                                 <p class="text-gray-600">Grant Funding Secured</p>
-                                <p class="text-sm text-gray-500 mt-2">Polkadot $10K, Arbitrum $50K</p>
+                                <p class="text-sm text-gray-500 mt-2">From multiple blockchain foundations</p>
                             </div>
                             <div class="bg-white p-6 rounded-lg text-center">
                                 <div class="text-3xl font-bold text-green-600 mb-2">3+</div>
@@ -494,7 +481,7 @@
                             <div class="bg-white p-6 rounded-lg text-center">
                                 <div class="text-3xl font-bold text-purple-600 mb-2">2</div>
                                 <p class="text-gray-600">Enterprise Negotiations</p>
-                                <p class="text-sm text-gray-500 mt-2">Fidelidade & Mapfre</p>
+                                <p class="text-sm text-gray-500 mt-2">With major insurance providers</p>
                             </div>
                             <div class="bg-white p-6 rounded-lg text-center">
                                 <div class="text-3xl font-bold text-indigo-600 mb-2">Multiple</div>
@@ -529,21 +516,16 @@
                             <h2 class="text-2xl font-bold mb-4">Get in Touch</h2>
                             <p class="text-gray-300">Ready to revolutionize insurance with us?</p>
                         </div>
-                        <div class="grid md:grid-cols-3 gap-8 text-center">
+                        <div class="flex justify-center space-x-8 text-center">
                             <div>
                                 <i class="fas fa-envelope text-blue-400 text-2xl mb-3"></i>
                                 <h3 class="font-semibold mb-2">Email</h3>
-                                <p class="text-gray-300">hello@sibrox.io</p>
+                                <p class="text-gray-300">kirill@sibrox.com</p>
                             </div>
                             <div>
-                                <i class="fab fa-telegram text-blue-400 text-2xl mb-3"></i>
-                                <h3 class="font-semibold mb-2">Telegram</h3>
-                                <p class="text-gray-300">@KSSLAVIN</p>
-                            </div>
-                            <div>
-                                <i class="fab fa-github text-blue-400 text-2xl mb-3"></i>
-                                <h3 class="font-semibold mb-2">GitHub</h3>
-                                <p class="text-gray-300">github.com/danielabrahamx</p>
+                                <i class="fas fa-envelope text-blue-400 text-2xl mb-3"></i>
+                                <h3 class="font-semibold mb-2">Email</h3>
+                                <p class="text-gray-300">daniel@sibrox.com</p>
                             </div>
                         </div>
                     </div>
@@ -563,25 +545,21 @@
                 <div>
                     <h4 class="font-semibold mb-4">Products</h4>
                     <ul class="space-y-2 text-gray-300">
-                        <li><a href="#" onclick="showPage('products')" class="hover:text-white">Paramify</a></li>
-                        <li><a href="#" onclick="showPage('products')" class="hover:text-white">Enterprise SaaS</a></li>
-                        <li><a href="#" onclick="showPage('products')" class="hover:text-white">API Integration</a></li>
+                        <li><a href="#" onclick="showPage('products')" class="hover:text-white">Products</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4">Company</h4>
+                    <h4 class="font-semibold mb-4">About</h4>
                     <ul class="space-y-2 text-gray-300">
                         <li><a href="#" onclick="showPage('team')" class="hover:text-white">Team</a></li>
                         <li><a href="#" onclick="showPage('company')" class="hover:text-white">About</a></li>
-                        <li><a href="#" onclick="showPage('company')" class="hover:text-white">Contact</a></li>
+                        <li><a href="#contact" class="hover:text-white">Contact</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4">Technology</h4>
+                    <h4 class="font-semibold mb-4">Tech Stack</h4>
                     <ul class="space-y-2 text-gray-300">
-                        <li><a href="#" onclick="showPage('technology')" class="hover:text-white">Blockchain</a></li>
-                        <li><a href="#" onclick="showPage('technology')" class="hover:text-white">Smart Contracts</a></li>
-                        <li><a href="#" onclick="showPage('technology')" class="hover:text-white">Oracles</a></li>
+                        <li><a href="#" onclick="showPage('technology')" class="hover:text-white">Tech Stack</a></li>
                     </ul>
                 </div>
             </div>
@@ -607,7 +585,24 @@
                 link.classList.remove('nav-active');
             });
             
-            event.target.classList.add('nav-active');
+            // Find and activate links with matching onclick
+            document.querySelectorAll(`.nav-link[onclick*="showPage('${pageId}')"]`).forEach(link => {
+                link.classList.add('nav-active');
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closedIcon = document.getElementById('mobile-menu-closed-icon');
+            const openIcon = document.getElementById('mobile-menu-open-icon');
+            
+            mobileMenu.classList.toggle('hidden');
+            closedIcon.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
         }
 
         // Initialize chart on home page
