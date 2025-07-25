@@ -3,625 +3,1398 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sibrox - Blockchain Infrastructure for Parametric Insurance</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Sibrox - Enterprise Blockchain Infrastructure for Parametric Insurance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .nav-active { color: #667eea; border-bottom: 2px solid #667eea; }
-        .hidden { display: none; }
-        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        /* Fix for enterprise features grid to prevent card overlap */
+        .enterprise-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            align-items: stretch;
+        }
+        .feature-card {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        @media (max-width: 1100px) {
+            .enterprise-features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+        }
+        @media (max-width: 900px) {
+            .enterprise-features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* CSS Custom Properties */
+        :root {
+            --primary-navy: #1e293b;
+            --primary-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --surface-white: #ffffff;
+            --surface-gray: #f8fafc;
+            --surface-dark: #f1f5f9;
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-purple) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--accent-green) 0%, var(--primary-blue) 100%);
+        }
+
+        /* Typography System */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            background-color: var(--surface-white);
+        }
+
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+        .text-5xl { font-size: 3rem; line-height: 1.1; }
+        .text-6xl { font-size: 3.75rem; line-height: 1; }
+
+        .font-light { font-weight: 300; }
+        .font-normal { font-weight: 400; }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+        .font-extrabold { font-weight: 800; }
+
+        /* Layout System */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-padding { padding: 5rem 0; }
+        .section-padding-sm { padding: 3rem 0; }
+        .section-padding-lg { padding: 7rem 0; }
+
+        .grid-1 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .flex-wrap { flex-wrap: wrap; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+
+        /* Card System */
+        .card {
+            background: var(--surface-white);
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-lg);
+            padding: 2rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Animation System */
+        .transition-smooth { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hover-lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+        .hover-scale:hover { transform: scale(1.02); }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-fade-in-up { animation: fadeInUp 0.6s ease-out; }
+        .animate-fade-in-left { animation: fadeInLeft 0.6s ease-out; }
+        .animate-fade-in-right { animation: fadeInRight 0.6s ease-out; }
+
+        /* Button System */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--surface-white);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            text-decoration: none;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 8rem 0 6rem;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 6rem 0;
+            background: var(--surface-gray);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            background: var(--surface-white);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .problem-icon {
+            width: 4rem;
+            height: 4rem;
+            background: #fef2f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: #dc2626;
+            font-size: 1.5rem;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 6rem 0;
+            background: var(--surface-white);
+        }
+
+        .architecture-diagram {
+            background: var(--surface-gray);
+            border-radius: 1rem;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+
+        .arch-layer {
+            background: var(--surface-white);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .arch-layer:last-child {
+            margin-bottom: 0;
+        }
+
+        .arch-layer h4 {
+            color: var(--primary-navy);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .arch-components {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .component {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Enterprise Features */
+        .enterprise-section {
+            padding: 6rem 0;
+            background: var(--surface-gray);
+        }
+
+        .feature-card {
+            background: var(--surface-white);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-blue);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            background: var(--gradient-primary);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .feature-content {
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .feature-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-link:hover {
+            color: var(--primary-navy);
+        }
+
+        /* Integration Flow */
+        .integration-section {
+            padding: 6rem 0;
+            background: var(--surface-white);
+        }
+
+        .integration-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .integration-step {
+            background: var(--surface-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            position: relative;
+            border: 2px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .integration-step:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            width: 3rem;
+            height: 3rem;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 6rem 0;
+            background: var(--surface-gray);
+        }
+
+        .founder-card {
+            background: var(--surface-white);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .founder-avatar {
+            width: 8rem;
+            height: 8rem;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: var(--surface-gray);
+            color: var(--text-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Market Section */
+        .market-section {
+            padding: 6rem 0;
+            background: var(--surface-white);
+        }
+
+        .chart-container {
+            background: var(--surface-gray);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--primary-navy);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-navy);
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #475569;
+            padding-top: 2rem;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1rem; }
+            .section-padding { padding: 3rem 0; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .navbar-nav { display: none; }
+            .hero-section { padding: 6rem 0 4rem; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.125rem; }
+            .stat-number { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-stats { grid-template-columns: 1fr; }
+            .integration-flow { grid-template-columns: 1fr; }
+            .founder-avatar { width: 6rem; height: 6rem; font-size: 2rem; }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-white { color: white; }
+        .bg-gradient { background: var(--gradient-primary); }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .max-w-4xl { max-width: 56rem; margin-left: auto; margin-right: auto; }
+        .opacity-80 { opacity: 0.8; }
+        .opacity-90 { opacity: 0.9; }
+
+        /* Animation delays for staggered effects */
+        .animate-delay-100 { animation-delay: 0.1s; }
+        .animate-delay-200 { animation-delay: 0.2s; }
+        .animate-delay-300 { animation-delay: 0.3s; }
+        .animate-delay-400 { animation-delay: 0.4s; }
     </style>
 </head>
-<body class="bg-gray-50">
+<body>
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-2xl font-bold text-gray-900"><a href="#" onclick="showPage('home')" class="text-gray-900 hover:text-blue-600 transition duration-150">Sibrox</a></h1>
-                    </div>
-                </div>
-                <!-- Desktop Navigation -->
-                <div class="hidden md:ml-6 md:flex md:space-x-8">
-                    <a href="#" onclick="showPage('home')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Home</a>
-                    <a href="#" onclick="showPage('products')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Products</a>
-                    <a href="#" onclick="showPage('technology')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Tech Stack</a>
-                    <a href="#" onclick="showPage('team')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">Team</a>
-                    <a href="#" onclick="showPage('company')" class="nav-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition duration-150 ease-in-out">About</a>
-                </div>
-                <!-- Mobile menu button -->
-                <div class="flex md:hidden">
-                    <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                        <span class="sr-only">Open main menu</span>
-                        <!-- Icon when menu is closed -->
-                        <svg id="mobile-menu-closed-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        <!-- Icon when menu is open -->
-                        <svg id="mobile-menu-open-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="hidden md:flex items-center">
-                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Contact Us</a>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile menu, show/hide based on menu state -->
-        <div id="mobile-menu" class="hidden md:hidden">
-            <div class="pt-2 pb-3 space-y-1">
-                <a href="#" onclick="showPage('home'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">Home</a>
-                <a href="#" onclick="showPage('products'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">Products</a>
-                <a href="#" onclick="showPage('technology'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">Tech Stack</a>
-                <a href="#" onclick="showPage('team'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">Team</a>
-                <a href="#" onclick="showPage('company'); toggleMobileMenu()" class="nav-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition duration-150 ease-in-out">About</a>
-                <div class="pt-4 pb-3 border-t border-gray-200">
-                    <a href="#contact" onclick="toggleMobileMenu()" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out mx-2">Contact Us</a>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="#home" class="navbar-brand">Sibrox</a>
+                <div class="navbar-nav">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#solution" class="nav-link">Solution</a>
+                    <a href="#enterprise" class="nav-link">Enterprise</a>
+                    <a href="#technology" class="nav-link">Technology</a>
+                    <a href="#team" class="nav-link">Team</a>
+                    <a href="#contact" class="btn btn-primary">Schedule Demo</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="pt-16">
-        <!-- Home Page -->
-        <div id="home-page" class="page">
-            <!-- Hero Section -->
-            <section class="gradient-bg text-white py-20">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h1 class="text-4xl md:text-6xl font-bold mb-6">Blockchain Infrastructure for Parametric Insurance</h1>
-                        <p class="text-xl md:text-2xl mb-8 text-blue-100">Revolutionizing risk management through automated, transparent, and interoperable smart contracts</p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button onclick="showPage('products')" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">Explore Products</button>
-                            <button onclick="showPage('technology')" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">View Tech Stack</button>
-                        </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="hero-content animate-on-scroll">
+                <div class="hero-badge">Blockchain Infrastructure for Insurance Carriers</div>
+                <h1 class="hero-title">Enterprise-Grade Parametric Insurance Platform</h1>
+                <p class="hero-subtitle">White-label SaaS infrastructure enabling insurance companies to launch blockchain-based parametric products in weeks, not years</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item animate-on-scroll animate-delay-100">
+                        <div class="stat-number">$60K+</div>
+                        <div class="stat-label">Grant Funding Secured</div>
+                    </div>
+                    <div class="stat-item animate-on-scroll animate-delay-200">
+                        <div class="stat-number">2+</div>
+                        <div class="stat-label">Enterprise Negotiations</div>
+                    </div>
+                    <div class="stat-item animate-on-scroll animate-delay-300">
+                        <div class="stat-number">Multi-Chain</div>
+                        <div class="stat-label">EVM Compatible</div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Problem Statement -->
-            <section class="py-16 bg-white">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Traditional Insurance is Broken</h2>
-                        <p class="text-xl text-gray-600">Multiple intermediaries, manual processes, and legacy systems create inefficiencies</p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-calendar-alt"></i>
+                        Schedule Demo
+                    </a>
+                    <a href="#technology" class="btn btn-outline">
+                        <i class="fas fa-code"></i>
+                        View Documentation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="text-center mb-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-primary mb-4">Traditional Insurance is Broken</h2>
+                <p class="text-xl text-secondary max-w-4xl">Multiple intermediaries, manual processes, and legacy systems create inefficiencies</p>
+            </div>
+
+            <div class="problem-grid">
+                <div class="problem-card animate-on-scroll animate-delay-100">
+                    <div class="problem-icon">
+                        <i class="fas fa-server"></i>
                     </div>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <h3 class="text-xl font-semibold mb-3">Legacy Infrastructure</h3>
+                    <p class="text-secondary">COBOL systems and mainframes limit innovation and prevent blockchain integration</p>
+                </div>
+
+                <div class="problem-card animate-on-scroll animate-delay-200">
+                    <div class="problem-icon">
+                        <i class="fas fa-hand-paper"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Manual Processes</h3>
+                    <p class="text-secondary">Slow underwriting and claims processing increase operational costs and customer friction</p>
+                </div>
+
+                <div class="problem-card animate-on-scroll animate-delay-300">
+                    <div class="problem-icon">
+                        <i class="fas fa-calendar-times"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Long Development Cycles</h3>
+                    <p class="text-secondary">New product development takes months or years, missing market opportunities</p>
+                </div>
+
+                <div class="problem-card animate-on-scroll animate-delay-400">
+                    <div class="problem-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Compliance Complexity</h3>
+                    <p class="text-secondary">Regulatory requirements and technical capabilities create barriers to blockchain adoption</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Architecture Section -->
+    <section id="solution" class="solution-section">
+        <div class="container">
+            <div class="text-center mb-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-4">Our Solution: Parametric Smart Contracts</h2>
+                <p class="text-xl text-secondary max-w-4xl">Paramify provides a smart contracts based tech platform for insurance companies to manage parametric insurance policies and payouts.</p>
+            </div>
+            <div class="solution-cards-grid" style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+                <div class="solution-card" style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.04); padding: 2.5rem 2rem; flex: 1 1 250px; max-width: 320px; min-width: 250px; text-align: center;">
+                    <div style="background: #e0edff; border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-bolt" style="color: #2563eb; font-size: 2rem;"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Super-Fast</h3>
+                    <p style="color: #475569;">Instant payouts triggered by verifiable data</p>
+                </div>
+                <div class="solution-card" style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.04); padding: 2.5rem 2rem; flex: 1 1 250px; max-width: 320px; min-width: 250px; text-align: center;">
+                    <div style="background: #d1fae5; border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-dollar-sign" style="color: #22c55e; font-size: 2rem;"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Cost-Effective</h3>
+                    <p style="color: #475569;">Eliminate intermediaries and reduce operational costs</p>
+                </div>
+                <div class="solution-card" style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.04); padding: 2.5rem 2rem; flex: 1 1 250px; max-width: 320px; min-width: 250px; text-align: center;">
+                    <div style="background: #ede9fe; border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-eye" style="color: #a21caf; font-size: 2rem;"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Transparent</h3>
+                    <p style="color: #475569;">All transactions visible on the blockchain</p>
+                </div>
+                <div class="solution-card" style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.04); padding: 2.5rem 2rem; flex: 1 1 250px; max-width: 320px; min-width: 250px; text-align: center;">
+                    <div style="background: #e0e7ff; border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-link" style="color: #6366f1; font-size: 2rem;"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Interoperable</h3>
+                    <p style="color: #475569;">Cross-chain compatibility and integration</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Features Section -->
+    <section id="enterprise" class="enterprise-section">
+        <div class="container">
+            <div class="text-center mb-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-4">Enterprise-Ready Features</h2>
+                <p class="text-xl text-secondary max-w-4xl">Built for insurance carriers with enterprise-grade security, compliance, and integration capabilities</p>
+            </div>
+            <div class="enterprise-features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                <div class="feature-card card-hover animate-on-scroll">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">RESTful API Integration</h3>
+                    </div>
+                    <div class="feature-content">
+                        <p class="text-secondary mb-4">Seamless integration with existing core insurance systems through standardized APIs</p>
+                        <ul class="feature-list">
+                            <li>OpenAPI 3.0 specification</li>
+                            <li>Rate limiting and authentication</li>
+                            <li>Real-time webhook notifications</li>
+                            <li>Comprehensive error handling</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card card-hover animate-on-scroll animate-delay-100">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Enterprise Security</h3>
+                    </div>
+                    <div class="feature-content">
+                        <p class="text-secondary mb-4">Bank-level security with compliance-ready features for regulated environments</p>
+                        <ul class="feature-list">
+                            <li>Multi-signature governance</li>
+                            <li>Role-based access control</li>
+                            <li>Audit trail maintenance</li>
+                            <li>KYC/AML integration ready</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card card-hover animate-on-scroll animate-delay-200">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Analytics Dashboard</h3>
+                    </div>
+                    <div class="feature-content">
+                        <p class="text-secondary mb-4">Real-time monitoring and reporting for risk assessment and portfolio management</p>
+                        <ul class="feature-list">
+                            <li>Policy performance metrics</li>
+                            <li>Claims processing analytics</li>
+                            <li>Risk exposure monitoring</li>
+                            <li>Custom reporting tools</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card card-hover animate-on-scroll animate-delay-300">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">White-Label Platform</h3>
+                    </div>
+                    <div class="feature-content">
+                        <p class="text-secondary mb-4">Fully customizable platform with your branding and business logic</p>
+                        <ul class="feature-list">
+                            <li>Custom UI/UX design</li>
+                            <li>Branded customer portals</li>
+                            <li>Configurable workflows</li>
+                            <li>Multi-tenant architecture</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card card-hover animate-on-scroll animate-delay-400">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Oracle Network</h3>
+                    </div>
+                    <div class="feature-content">
+                        <p class="text-secondary mb-4">Reliable data feeds from government and institutional sources</p>
+                        <ul class="feature-list">
+                            <li>USGS flood data integration</li>
+                            <li>Weather API connections</li>
+                            <li>Custom data source support</li>
+                            <li>5-minute update intervals</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card card-hover animate-on-scroll animate-delay-500">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">24/7 Support</h3>
+                    </div>
+                    <div class="feature-content">
+                        <p class="text-secondary mb-4">Dedicated enterprise support with SLA guarantees</p>
+                        <ul class="feature-list">
+                            <li>Dedicated account manager</li>
+                            <li>Priority technical support</li>
+                            <li>Implementation assistance</li>
+                            <li>Training and onboarding</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Showcase -->
+    <section class="integration-section">
+        <div class="container">
+            <div class="text-center mb-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-4">Simple Integration Process</h2>
+                <p class="text-xl text-secondary max-w-4xl">Get parametric insurance products to market in weeks with our streamlined deployment process</p>
+            </div>
+
+            <div class="integration-flow">
+                <div class="integration-step animate-on-scroll">
+                    <div class="step-number">1</div>
+                    <h4 class="text-lg font-semibold mb-2">Policy Configuration</h4>
+                    <p class="text-secondary">Configure parametric policies via API or dashboard interface</p>
+                </div>
+
+                <div class="integration-step animate-on-scroll animate-delay-100">
+                    <div class="step-number">2</div>
+                    <h4 class="text-lg font-semibold mb-2">Smart Contract Deployment</h4>
+                    <p class="text-secondary">Automated deployment to selected blockchain networks</p>
+                </div>
+
+                <div class="integration-step animate-on-scroll animate-delay-200">
+                    <div class="step-number">3</div>
+                    <h4 class="text-lg font-semibold mb-2">Data Integration</h4>
+                    <p class="text-secondary">Connect oracle feeds and verification sources</p>
+                </div>
+
+                <div class="integration-step animate-on-scroll animate-delay-300">
+                    <div class="step-number">4</div>
+                    <h4 class="text-lg font-semibold mb-2">Go Live</h4>
+                    <p class="text-secondary">Launch parametric insurance products to customers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section id="technology" class="solution-section">
+        <div class="container">
+            <div class="text-center mb-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-4">Enterprise Technology Stack</h2>
+                <p class="text-xl text-secondary max-w-4xl">Built on proven blockchain infrastructure with enterprise-grade security and compliance</p>
+            </div>
+
+            <div class="grid-2 mb-8">
+                <div class="card animate-on-scroll">
+                    <h3 class="text-xl font-semibold mb-4"><i class="fas fa-layer-group mr-3 text-blue-600"></i>Blockchain Layer</h3>
+                    <div class="grid-3 gap-4">
                         <div class="text-center">
-                            <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-users text-red-600 text-2xl"></i>
+                            <div class="feature-icon mb-3" style="margin: 0 auto;">
+                                <i class="fab fa-ethereum"></i>
                             </div>
-                            <h3 class="font-semibold text-gray-900 mb-2">Multiple Intermediaries</h3>
-                            <p class="text-gray-600">Brokers, MGAs, and financial advisors add complexity</p>
+                            <h4 class="font-semibold">Ethereum</h4>
+                            <p class="text-sm text-secondary">Primary network</p>
                         </div>
                         <div class="text-center">
-                            <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-clock text-red-600 text-2xl"></i>
+                            <div class="feature-icon mb-3" style="margin: 0 auto;">
+                                <i class="fas fa-mountain"></i>
                             </div>
-                            <h3 class="font-semibold text-gray-900 mb-2">Slow Processing</h3>
-                            <p class="text-gray-600">Manual claim processing and outdated COBOL systems</p>
+                            <h4 class="font-semibold">Avalanche</h4>
+                            <p class="text-sm text-secondary">C-Chain compatible</p>
                         </div>
                         <div class="text-center">
-                            <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-dollar-sign text-red-600 text-2xl"></i>
+                            <div class="feature-icon mb-3" style="margin: 0 auto;">
+                                <i class="fas fa-layer-group"></i>
                             </div>
-                            <h3 class="font-semibold text-gray-900 mb-2">High Costs</h3>
-                            <p class="text-gray-600">Expensive premiums due to operational overhead</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-ban text-red-600 text-2xl"></i>
-                            </div>
-                            <h3 class="font-semibold text-gray-900 mb-2">Limited Access</h3>
-                            <p class="text-gray-600">Many risks becoming uninsurable or unavailable</p>
+                            <h4 class="font-semibold">Arbitrum</h4>
+                            <p class="text-sm text-secondary">Layer 2 scaling</p>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Solution -->
-            <section class="py-16 bg-gray-50">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Solution: Parametric Smart Contracts</h2>
-                        <p class="text-xl text-gray-600">Automated, transparent, and instant insurance powered by blockchain</p>
-                    </div>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div class="text-center card-hover bg-white p-6 rounded-lg shadow-lg">
-                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-bolt text-blue-600 text-2xl"></i>
-                            </div>
-                            <h3 class="font-semibold text-gray-900 mb-2">Super-Fast</h3>
-                            <p class="text-gray-600">Instant payouts triggered by verifiable data</p>
-                        </div>
-                        <div class="text-center card-hover bg-white p-6 rounded-lg shadow-lg">
-                            <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-dollar-sign text-green-600 text-2xl"></i>
-                            </div>
-                            <h3 class="font-semibold text-gray-900 mb-2">Cost-Effective</h3>
-                            <p class="text-gray-600">Eliminate intermediaries and reduce operational costs</p>
-                        </div>
-                        <div class="text-center card-hover bg-white p-6 rounded-lg shadow-lg">
-                            <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-eye text-purple-600 text-2xl"></i>
-                            </div>
-                            <h3 class="font-semibold text-gray-900 mb-2">Transparent</h3>
-                            <p class="text-gray-600">All transactions visible on the blockchain</p>
-                        </div>
-                        <div class="text-center card-hover bg-white p-6 rounded-lg shadow-lg">
-                            <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-link text-indigo-600 text-2xl"></i>
-                            </div>
-                            <h3 class="font-semibold text-gray-900 mb-2">Interoperable</h3>
-                            <p class="text-gray-600">Cross-chain compatibility and integration</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Market Opportunity -->
-            <section class="py-16 bg-white">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">$90B Market Opportunity</h2>
-                        <p class="text-xl text-gray-600">Transforming the insurance SaaS landscape</p>
-                    </div>
-                    <div class="bg-gray-50 p-8 rounded-lg">
-                        <canvas id="marketChart" style="height: 400px;"></canvas>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Products Page -->
-        <div id="products-page" class="page hidden">
-            <section class="py-20">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-16">
-                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Products</h1>
-                        <p class="text-xl text-gray-600">Comprehensive blockchain insurance solutions for modern risks</p>
-                    </div>
-
-                    <!-- Paramify - Flagship Product -->
-                    <div class="bg-white rounded-lg shadow-xl p-8 mb-12">
-                        <div class="grid md:grid-cols-2 gap-8 items-center">
-                            <div>
-                                <h2 class="text-3xl font-bold text-gray-900 mb-4">Paramify</h2>
-                                <p class="text-lg text-gray-600 mb-6">Our flagship parametric insurance platform for flood, fire, and cyber risks. Built on blockchain technology for automated claims processing and instant payouts.</p>
-                                <div class="space-y-4">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                        <span>Real-time flood data monitoring via USGS integration</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                        <span>Smart contract automation for instant payouts</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                        <span>EVM-compatible across multiple blockchains</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                        <span>Role-based access control for enterprise security</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <h3 class="text-xl font-semibold mb-4">Supported Risk Types</h3>
-                                <div class="grid grid-cols-1 gap-4">
-                                    <div class="bg-blue-100 p-4 rounded-lg">
-                                        <i class="fas fa-water text-blue-600 text-2xl mb-2"></i>
-                                        <h4 class="font-semibold">Flood Insurance</h4>
-                                        <p class="text-sm text-gray-600">Automated payouts based on verified water level data</p>
-                                    </div>
-                                    <div class="bg-red-100 p-4 rounded-lg">
-                                        <i class="fas fa-fire text-red-600 text-2xl mb-2"></i>
-                                        <h4 class="font-semibold">Fire Insurance</h4>
-                                        <p class="text-sm text-gray-600">Coverage triggered by temperature and fire detection data</p>
-                                    </div>
-                                    <div class="bg-purple-100 p-4 rounded-lg">
-                                        <i class="fas fa-shield-alt text-purple-600 text-2xl mb-2"></i>
-                                        <h4 class="font-semibold">Cyber Insurance</h4>
-                                        <p class="text-sm text-gray-600">Protection against cyber incidents with verified triggers</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Features -->
-                    <div class="grid md:grid-cols-3 gap-8 mb-12">
-                        <div class="bg-white p-6 rounded-lg shadow-lg">
-                            <i class="fas fa-cogs text-blue-600 text-3xl mb-4"></i>
-                            <h3 class="text-xl font-semibold mb-3">Enterprise SaaS</h3>
-                            <p class="text-gray-600">White-label solutions for insurance providers looking to modernize their offerings</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-lg">
-                            <i class="fas fa-chart-line text-green-600 text-3xl mb-4"></i>
-                            <h3 class="text-xl font-semibold mb-3">Analytics Dashboard</h3>
-                            <p class="text-gray-600">Real-time monitoring and reporting for risk assessment and portfolio management</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-lg">
-                            <i class="fas fa-plug text-purple-600 text-3xl mb-4"></i>
-                            <h3 class="text-xl font-semibold mb-3">API Integration</h3>
-                            <p class="text-gray-600">Seamless integration with existing insurance systems and third-party data providers</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Tech Stack Page -->
-        <div id="technology-page" class="page hidden">
-            <section class="py-20">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-16">
-                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Technology Stack</h1>
-                        <p class="text-xl text-gray-600">Built on cutting-edge blockchain infrastructure for maximum reliability and scalability</p>
-                    </div>
-
-                    <!-- Architecture Overview -->
-                    <div class="bg-white rounded-lg shadow-xl p-8 mb-12">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">System Architecture</h2>
-                        <div class="tech-grid">
-                            <div class="bg-blue-50 p-6 rounded-lg">
-                                <h3 class="text-lg font-semibold text-blue-900 mb-3">Smart Contracts</h3>
-                                <ul class="text-blue-700 space-y-2">
-                                    <li>• ERC-721 Enumerable for policy tokens</li>
-                                    <li>• Threshold-based payout logic</li>
-                                    <li>• Multi-signature governance</li>
-                                    <li>• OpenZeppelin security standards</li>
-                                </ul>
-                            </div>
-                            <div class="bg-green-50 p-6 rounded-lg">
-                                <h3 class="text-lg font-semibold text-green-900 mb-3">Oracle Network</h3>
-                                <ul class="text-green-700 space-y-2">
-                                    <li>• Chainlink-compatible aggregators</li>
-                                    <li>• USGS real-time data feeds</li>
-                                    <li>• Government database integration</li>
-                                    <li>• 5-minute update intervals</li>
-                                </ul>
-                            </div>
-                            <div class="bg-purple-50 p-6 rounded-lg">
-                                <h3 class="text-lg font-semibold text-purple-900 mb-3">Backend Infrastructure</h3>
-                                <ul class="text-purple-700 space-y-2">
-                                    <li>• Node.js with Express framework</li>
-                                    <li>• WebSocket real-time updates</li>
-                                    <li>• RESTful API architecture</li>
-                                    <li>• Automated monitoring systems</li>
-                                </ul>
-                            </div>
-                            <div class="bg-indigo-50 p-6 rounded-lg">
-                                <h3 class="text-lg font-semibold text-indigo-900 mb-3">Frontend Platform</h3>
-                                <ul class="text-indigo-700 space-y-2">
-                                    <li>• React with TypeScript</li>
-                                    <li>• Web3 wallet integration</li>
-                                    <li>• Responsive design system</li>
-                                    <li>• Real-time data visualization</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Blockchain Networks -->
-                    <div class="bg-gray-50 p-8 rounded-lg mb-12">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Supported Networks</h2>
-                        <div class="grid md:grid-cols-3 gap-6">
-                            <div class="bg-white p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i class="fab fa-ethereum text-blue-600 text-2xl"></i>
-                                </div>
-                                <h3 class="font-semibold text-gray-900">Ethereum</h3>
-                                <p class="text-gray-600">Primary deployment network</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-mountain text-red-600 text-2xl"></i>
-                                </div>
-                                <h3 class="font-semibold text-gray-900">Avalanche</h3>
-                                <p class="text-gray-600">C-Chain compatible</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-bridge text-purple-600 text-2xl"></i>
-                                </div>
-                                <h3 class="font-semibold text-gray-900">Arbitrum</h3>
-                                <p class="text-gray-600">Layer 2 scaling solution</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Security Features -->
-                    <div class="bg-white rounded-lg shadow-xl p-8">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Security & Compliance</h2>
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h3 class="text-lg font-semibold mb-4">Smart Contract Security</h3>
-                                <ul class="space-y-2 text-gray-600">
-                                    <li>✓ OpenZeppelin AccessControl implementation</li>
-                                    <li>✓ Role-based permission system</li>
-                                    <li>✓ Reentrancy protection</li>
-                                    <li>✓ Comprehensive unit testing</li>
-                                    <li>✓ Gas optimization techniques</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold mb-4">Enterprise Compliance</h3>
-                                <ul class="space-y-2 text-gray-600">
-                                    <li>✓ Insurance regulatory compliance</li>
-                                    <li>✓ Data privacy protection</li>
-                                    <li>✓ Audit trail maintenance</li>
-                                    <li>✓ KYC/AML integration ready</li>
-                                    <li>✓ Multi-signature governance</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Team Page -->
-        <div id="team-page" class="page hidden">
-            <section class="py-20">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-16">
-                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Team</h1>
-                        <p class="text-xl text-gray-600">Experienced founders and engineers building the future of insurance</p>
-                    </div>
-
-                    <!-- Founders -->
-                    <div class="mb-16">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Founders</h2>
-                        <div class="grid md:grid-cols-2 gap-12">
-                            <div class="text-center">
-                                <div class="w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mx-auto mb-6 flex items-center justify-center">
-                                    <span class="text-white text-4xl font-bold">D</span>
-                                </div>
-                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Daniel</h3>
-                                <p class="text-blue-600 font-semibold mb-4">Co-Founder</p>
-                                <div class="bg-gray-50 p-6 rounded-lg">
-                                    <p class="text-gray-600 mb-4">Expert in actuarial science with deep experience in cyber insurance. Brings critical risk assessment and insurance domain expertise to the team.</p>
-                                    <div class="flex flex-wrap justify-center gap-2">
-                                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Actuarial Science</span>
-                                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Cyber Insurance</span>
-                                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Risk Management</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <div class="w-32 h-32 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mx-auto mb-6 flex items-center justify-center">
-                                    <span class="text-white text-4xl font-bold">K</span>
-                                </div>
-                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Kirill</h3>
-                                <p class="text-blue-600 font-semibold mb-4">Co-Founder</p>
-                                <div class="bg-gray-50 p-6 rounded-lg">
-                                    <p class="text-gray-600 mb-4">Serial entrepreneur who co-founded a $100M fintech company and contributed to pivoting a cybersecurity decacorn. Brings scaling and business development expertise.</p>
-                                    <div class="flex flex-wrap justify-center gap-2">
-                                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Fintech</span>
-                                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Cybersecurity</span>
-                                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Business Development</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Advisory -->
-                    <div class="mt-16 text-center">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Advisors & Partners</h2>
-                        <p class="text-gray-600 mb-8">We work closely with industry experts and leading organizations</p>
-                        <div class="grid md:grid-cols-3 gap-8">
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <i class="fas fa-university text-blue-600 text-3xl mb-4"></i>
-                                <h3 class="font-semibold text-gray-900">Academic Partners</h3>
-                                <p class="text-gray-600">Research collaborations in actuarial science and blockchain technology</p>
-                            </div>
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <i class="fas fa-building text-green-600 text-3xl mb-4"></i>
-                                <h3 class="font-semibold text-gray-900">Insurance Partners</h3>
-                                <p class="text-gray-600">Working with leading insurers to validate and deploy solutions</p>
-                            </div>
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <i class="fas fa-code text-purple-600 text-3xl mb-4"></i>
-                                <h3 class="font-semibold text-gray-900">Technical Advisors</h3>
-                                <p class="text-gray-600">Blockchain and DeFi experts guiding our technical architecture</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Company Page -->
-        <div id="company-page" class="page hidden">
-            <section class="py-20">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-16">
-                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Sibrox</h1>
-                        <p class="text-xl text-gray-600">Building the infrastructure for the next generation of parametric insurance</p>
-                    </div>
-
-                    <!-- Mission & Vision -->
-                    <div class="grid md:grid-cols-2 gap-12 mb-16">
-                        <div class="bg-white p-8 rounded-lg shadow-lg">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Mission</h2>
-                            <p class="text-gray-600 text-lg leading-relaxed">To eliminate the inefficiencies, high costs, and accessibility barriers in traditional insurance by building blockchain-native infrastructure that enables transparent, automated, and interoperable parametric insurance solutions.</p>
-                        </div>
-                        <div class="bg-white p-8 rounded-lg shadow-lg">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Vision</h2>
-                            <p class="text-gray-600 text-lg leading-relaxed">A world where insurance is instantly accessible, transparently executed, and automatically settled through smart contracts, making risk management simple and affordable for everyone.</p>
-                        </div>
-                    </div>
-
-                    <!-- Traction -->
-                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-lg mb-16">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Traction & Achievements</h2>
-                        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <div class="bg-white p-6 rounded-lg text-center">
-                                <div class="text-3xl font-bold text-blue-600 mb-2">$60K+</div>
-                                <p class="text-gray-600">Grant Funding Secured</p>
-                                <p class="text-sm text-gray-500 mt-2">From multiple blockchain foundations</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-lg text-center">
-                                <div class="text-3xl font-bold text-green-600 mb-2">3+</div>
-                                <p class="text-gray-600">Grants in Pipeline</p>
-                                <p class="text-sm text-gray-500 mt-2">Additional funding opportunities</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-lg text-center">
-                                <div class="text-3xl font-bold text-purple-600 mb-2">2</div>
-                                <p class="text-gray-600">Enterprise Negotiations</p>
-                                <p class="text-sm text-gray-500 mt-2">With major insurance providers</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-lg text-center">
-                                <div class="text-3xl font-bold text-indigo-600 mb-2">Multiple</div>
-                                <p class="text-gray-600">Hackathon Wins</p>
-                                <p class="text-sm text-gray-500 mt-2">Technical validation</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Market Focus -->
-                    <div class="bg-white rounded-lg shadow-xl p-8 mb-16">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Market Strategy</h2>
-                        <div class="grid md:grid-cols-3 gap-8">
-                            <div>
-                                <h3 class="text-lg font-semibold text-blue-600 mb-3">B2B SaaS Model</h3>
-                                <p class="text-gray-600">Backend infrastructure paid by Web3 platforms, pilots funded by traditional insurers</p>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-green-600 mb-3">Enterprise Focus</h3>
-                                <p class="text-gray-600">Targeting insurance carriers looking to modernize with blockchain technology</p>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-purple-600 mb-3">Future Value</h3>
-                                <p class="text-gray-600">Building infrastructure that will power the next generation of DeFi insurance protocols</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Contact Section -->
-                    <div id="contact" class="bg-gray-900 text-white p-8 rounded-lg">
-                        <div class="text-center mb-8">
-                            <h2 class="text-2xl font-bold mb-4">Get in Touch</h2>
-                            <p class="text-gray-300">Ready to revolutionize insurance with us?</p>
-                        </div>
-                        <div class="grid grid-cols-3 gap-4 text-center">
-                            <div>
-                                <i class="fas fa-envelope text-blue-400 text-2xl mb-3"></i>
-                                <h3 class="font-semibold mb-2">Kirill</h3>
-                                <p class="text-gray-300">kirill@sibrox.com</p>
-                            </div>
-                            <div>
-                                <i class="fas fa-envelope text-blue-400 text-2xl mb-3"></i>
-                                <h3 class="font-semibold mb-2">Daniel</h3>
-                                <p class="text-gray-300">daniel@sibrox.com</p>
-                            </div>
-                            <div>
-                                <i class="fab fa-github text-blue-400 text-2xl mb-3"></i>
-                                <h3 class="font-semibold mb-2">GitHub</h3>
-                                <p class="text-gray-300"><a href="https://github.com/danielabrahamx" target="_blank" class="hover:text-white underline">github.com/danielabrahamx</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Sibrox</h3>
-                    <p class="text-gray-300">Blockchain infrastructure for parametric insurance</p>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Products</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><a href="#" onclick="showPage('products')" class="hover:text-white">Products</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">About</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><a href="#" onclick="showPage('team')" class="hover:text-white">Team</a></li>
-                        <li><a href="#" onclick="showPage('company')" class="hover:text-white">About</a></li>
-                        <li><a href="#contact" class="hover:text-white">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Tech Stack</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><a href="#" onclick="showPage('technology')" class="hover:text-white">Tech Stack</a></li>
+                <div class="card animate-on-scroll animate-delay-100">
+                    <h3 class="text-xl font-semibold mb-4"><i class="fas fa-shield-alt mr-3 text-green-600"></i>Security Features</h3>
+                    <ul class="feature-list">
+                        <li>OpenZeppelin AccessControl</li>
+                        <li>Multi-signature governance</li>
+                        <li>Reentrancy protection</li>
+                        <li>Comprehensive testing</li>
+                        <li>Gas optimization</li>
+                        <li>Audit trail logging</li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
-                <p class="text-gray-400">&copy; 2024 Sibrox. All rights reserved.</p>
+
+            <div class="grid-2">
+                <div class="card animate-on-scroll animate-delay-200">
+                    <h3 class="text-xl font-semibold mb-4"><i class="fas fa-server mr-3 text-purple-600"></i>Backend Infrastructure</h3>
+                    <ul class="feature-list">
+                        <li>Node.js with Express framework</li>
+                        <li>WebSocket real-time updates</li>
+                        <li>RESTful API architecture</li>
+                        <li>GraphQL endpoints</li>
+                        <li>Microservices architecture</li>
+                        <li>Automated monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="card animate-on-scroll animate-delay-300">
+                    <h3 class="text-xl font-semibold mb-4"><i class="fas fa-laptop-code mr-3 text-indigo-600"></i>Frontend Platform</h3>
+                    <ul class="feature-list">
+                        <li>React with TypeScript</li>
+                        <li>Web3 wallet integration</li>
+                        <li>Responsive design system</li>
+                        <li>Real-time data visualization</li>
+                        <li>Progressive Web App</li>
+                        <li>Accessibility compliant</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Opportunity -->
+    <section class="market-section">
+        <div class="container">
+            <div class="text-center mb-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-4">$90B Market Opportunity</h2>
+                <p class="text-xl text-secondary">Transforming the insurance SaaS landscape with blockchain infrastructure</p>
+            </div>
+
+            <div class="chart-container animate-on-scroll">
+                <canvas id="marketChart" style="height: 400px;"></canvas>
+            </div>
+
+            <div class="grid-3 mt-8">
+                <div class="text-center animate-on-scroll">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">$65B</div>
+                    <p class="text-secondary">Traditional Insurance SaaS</p>
+                </div>
+                <div class="text-center animate-on-scroll animate-delay-100">
+                    <div class="text-3xl font-bold text-green-600 mb-2">$25B</div>
+                    <p class="text-secondary">Blockchain Insurance Opportunity</p>
+                </div>
+                <div class="text-center animate-on-scroll animate-delay-200">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">15%</div>
+                    <p class="text-secondary">Projected Annual Growth</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <div class="text-center mb-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-4">Leadership Team</h2>
+                <p class="text-xl text-secondary">Experienced founders combining insurance expertise with blockchain innovation</p>
+            </div>
+
+            <div class="grid-2 mb-8">
+                <div class="founder-card animate-on-scroll">
+                    <div class="founder-avatar" style="overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                        <img src="daniel.jpg" alt="Daniel" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Daniel</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Co-Founder & CEO</p>
+                    <p class="text-secondary mb-4">Expert in actuarial science with deep experience in cyber insurance. Brings critical risk assessment and insurance domain expertise to the team.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Actuarial Science</span>
+                        <span class="skill-tag">Cyber Insurance</span>
+                        <span class="skill-tag">Risk Management</span>
+                        <span class="skill-tag">Blockchain</span>
+                    </div>
+                </div>
+
+                <div class="founder-card animate-on-scroll animate-delay-100">
+                    <div class="founder-avatar" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: #e0e7ff;">
+                        <img src="kirill.png" alt="Kirill" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 50%; background: #e0e7ff;" />
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Kirill</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Co-Founder & CPO</p>
+                    <p class="text-secondary mb-4">Serial entrepreneur who co-founded a $100M fintech company and contributed to pivoting a cybersecurity decacorn. Brings scaling and business development expertise.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Fintech</span>
+                        <span class="skill-tag">Cybersecurity</span>
+                        <span class="skill-tag">Business Development</span>
+                        <span class="skill-tag">Scaling</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center animate-on-scroll">
+                <h3 class="text-xl font-semibold mb-4">Advisory Network</h3>
+                <div class="grid-3">
+                    <div class="card text-center">
+                        <i class="fas fa-university text-blue-600 text-3xl mb-4"></i>
+                        <h4 class="font-semibold mb-2">Academic Partners</h4>
+                        <p class="text-secondary text-sm">Research collaborations in actuarial science and blockchain technology</p>
+                    </div>
+                    <div class="card text-center">
+                        <i class="fas fa-building text-green-600 text-3xl mb-4"></i>
+                        <h4 class="font-semibold mb-2">Insurance Experts</h4>
+                        <p class="text-secondary text-sm">Former executives from leading insurance carriers and brokers</p>
+                    </div>
+                    <div class="card text-center">
+                        <i class="fas fa-code text-purple-600 text-3xl mb-4"></i>
+                        <h4 class="font-semibold mb-2">Tech Advisors</h4>
+                        <p class="text-secondary text-sm">Blockchain and DeFi experts guiding technical architecture</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traction Section -->
+    <section class="solution-section">
+        <div class="container">
+            <div class="text-center mb-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-4">Proven Traction</h2>
+                <p class="text-xl text-secondary">Strong validation from grants, enterprise partnerships, and technical achievements</p>
+            </div>
+
+            <div class="grid-4">
+                <div class="card text-center card-hover animate-on-scroll">
+                    <div class="text-3xl font-bold text-green-600 mb-2">$60K+</div>
+                    <h4 class="font-semibold mb-2">Grant Funding</h4>
+                    <p class="text-secondary text-sm">Secured from blockchain foundations and government programs</p>
+                </div>
+
+                <div class="card text-center card-hover animate-on-scroll animate-delay-100">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">2+</div>
+                    <h4 class="font-semibold mb-2">Enterprise Deals</h4>
+                    <p class="text-secondary text-sm">Active negotiations with major insurance carriers</p>
+                </div>
+
+                <div class="card text-center card-hover animate-on-scroll animate-delay-200">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">Multiple</div>
+                    <h4 class="font-semibold mb-2">Hackathon Wins</h4>
+                    <p class="text-secondary text-sm">Technical validation from blockchain competitions</p>
+                </div>
+
+                <div class="card text-center card-hover animate-on-scroll animate-delay-300">
+                    <div class="text-3xl font-bold text-indigo-600 mb-2">3+</div>
+                    <h4 class="font-semibold mb-2">Grants in Pipeline</h4>
+                    <p class="text-secondary text-sm">Additional funding opportunities under review</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="text-center mb-8 animate-on-scroll">
+                <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Insurance Products?</h2>
+                <p class="text-lg opacity-90">Schedule a demo to see how Sibrox can accelerate your parametric insurance initiatives</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-item animate-on-scroll">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Kirill - CPO</h4>
+                    <p>kirill@sibrox.com</p>
+                    <a href="mailto:kirill@sibrox.com" class="btn btn-primary mt-4">Contact Kirill</a>
+                </div>
+
+                <div class="contact-item animate-on-scroll animate-delay-100">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Daniel - CEO</h4>
+                    <p>daniel@sibrox.com</p>
+                    <a href="mailto:daniel@sibrox.com" class="btn btn-primary mt-4">Contact Daniel</a>
+                </div>
+
+                <div class="contact-item animate-on-scroll animate-delay-200">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Technical Resources</h4>
+                    <p>View our open-source contributions</p>
+                    <a href="https://github.com/danielabrahamx" target="_blank" class="btn btn-primary mt-4">View GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Sibrox</h4>
+                    <p class="text-secondary">Enterprise blockchain infrastructure for parametric insurance</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="#enterprise">Enterprise Features</a></li>
+                        <li><a href="#technology">Technology Stack</a></li>
+                        <li><a href="#solution">API Documentation</a></li>
+                        <li><a href="#contact">Schedule Demo</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">White Papers</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Technical Blog</a></li>
+                        <li><a href="https://github.com/danielabrahamx" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sibrox. All rights reserved. Building the future of parametric insurance.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Page navigation
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.add('hidden');
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            });
+        });
+
+        // Navigation active state management
+        function updateActiveNavigation() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = 'home';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
             });
             
-            // Show selected page
-            document.getElementById(pageId + '-page').classList.remove('hidden');
-            
-            // Update navigation
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('nav-active');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
             });
-            
-            // Find and activate links with matching onclick
-            document.querySelectorAll(`.nav-link[onclick*="showPage('${pageId}')"]`).forEach(link => {
-                link.classList.add('nav-active');
-            });
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-        
-        // Toggle mobile menu
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const closedIcon = document.getElementById('mobile-menu-closed-icon');
-            const openIcon = document.getElementById('mobile-menu-open-icon');
-            
-            mobileMenu.classList.toggle('hidden');
-            closedIcon.classList.toggle('hidden');
-            openIcon.classList.toggle('hidden');
         }
 
-        // Initialize chart on home page
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                    // Unobserve after animation to improve performance
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animate-on-scroll class
         document.addEventListener('DOMContentLoaded', function() {
-            // Market opportunity chart
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Initialize market chart
             const ctx = document.getElementById('marketChart').getContext('2d');
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Traditional Insurance SaaS', 'Blockchain Insurance (Opportunity)', 'Other InsurTech'],
+                    labels: [
+                        'Traditional Insurance SaaS ($65B)',
+                        'Blockchain Insurance Opportunity ($25B)',
+                        'Other InsurTech Solutions'
+                    ],
                     datasets: [{
                         data: [65, 25, 10],
-                        backgroundColor: ['#4F46E5', '#06B6D4', '#8B5CF6'],
-                        borderWidth: 0
+                        backgroundColor: [
+                            '#2563eb', // blue
+                            '#22c55e', // green
+                            '#a21caf'  // purple
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 10
                     }]
                 },
                 options: {
@@ -630,20 +1403,161 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: '$90B Insurance SaaS Market Breakdown',
-                            font: { size: 18, weight: 'bold' }
+                            text: '$90B Global Insurance SaaS Market',
+                            font: { 
+                                size: 20, 
+                                weight: 'bold',
+                                family: 'Inter'
+                            },
+                            color: 'var(--text-primary)',
+                            padding: 20
                         },
                         legend: {
                             position: 'bottom',
-                            labels: { padding: 20, font: { size: 14 } }
+                            labels: { 
+                                padding: 20, 
+                                font: { 
+                                    size: 14,
+                                    family: 'Inter'
+                                },
+                                color: 'var(--text-secondary)',
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            titleFont: { family: 'Inter' },
+                            bodyFont: { family: 'Inter' },
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                            borderColor: 'var(--primary-blue)',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            displayColors: true
                         }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        duration: 1500,
+                        easing: 'easeOutQuart'
                     }
                 }
             });
 
-            // Set home as default active
-            document.querySelector('a[onclick="showPage(\'home\')"]').classList.add('nav-active');
+            // Set home as initially active
+            document.querySelector('a[href="#home"]').classList.add('active');
+        });
+
+        // Listen for scroll events
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            // Debounce scroll events for better performance
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateActiveNavigation, 50);
+        });
+
+        // Add loading animation to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.getAttribute('href') && this.getAttribute('href').startsWith('mailto:')) {
+                    // Add clicked state for email links
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                }
+            });
+        });
+
+        // Performance optimization: Lazy load non-critical elements
+        if ('IntersectionObserver' in window) {
+            const lazyElements = document.querySelectorAll('.card-hover');
+            const lazyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.willChange = 'transform, box-shadow';
+                        lazyObserver.unobserve(entry.target);
+                    }
+                });
+            });
+
+            lazyElements.forEach(el => lazyObserver.observe(el));
+        }
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-nav');
+            }
+        });
+
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-nav');
         });
     </script>
+
+    <style>
+        /* Focus styles for keyboard navigation */
+        .keyboard-nav .btn:focus,
+        .keyboard-nav .nav-link:focus {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        /* Additional responsive improvements */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            .section-padding {
+                padding: 2rem 0;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Print styles for PDF export */
+        @media print {
+            .navbar {
+                position: static;
+                box-shadow: none;
+            }
+            
+            .hero-section {
+                margin-top: 0;
+                page-break-inside: avoid;
+            }
+            
+            .section-padding {
+                padding: 2rem 0;
+            }
+            
+            .card-hover:hover {
+                transform: none;
+                box-shadow: var(--shadow-lg);
+            }
+            
+            .btn {
+                border: 2px solid var(--primary-blue);
+                color: var(--primary-blue) !important;
+                background: transparent !important;
+            }
+            
+            a[href^="mailto:"] {
+                color: var(--text-primary) !important;
+            }
+            
+            /* Ensure content fits well on PDF pages */
+            .container {
+                max-width: 100%;
+                padding: 0 0.5rem;
+            }
+        }
+    </style>
 </body>
 </html>
